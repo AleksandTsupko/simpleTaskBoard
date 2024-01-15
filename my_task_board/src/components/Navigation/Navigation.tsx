@@ -2,7 +2,6 @@ import { Link } from "react-router-dom"
 import classes from "./Navigation.module.scss"
 
 export function Navigation() {
-    console.log(classes)
     return (
         <nav className={classes.navigation}>
         <h3 className={classes.title}>Task Board</h3>
@@ -15,4 +14,3 @@ export function Navigation() {
 
     )
 }
-
