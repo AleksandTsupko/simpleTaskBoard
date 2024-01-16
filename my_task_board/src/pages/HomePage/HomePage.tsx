@@ -1,5 +1,7 @@
 import { useRef, useState } from "react"
 import classes from './HomePage.module.scss'
+import { Tabs } from "../../components/Tabs/Tabs"
+import { Board } from "../../components/Board/Board"
 
 export function HomePage() {
     const [newBoardName, setNewBoardName] = useState("")
@@ -17,17 +19,9 @@ export function HomePage() {
 
 
     return (
-        <>
-            <h3>Home</h3>
-            <form>
-                <input 
-                    ref={boardNameInput}
-                    type="text"
-                    value={newBoardName}
-                    onChange={e => setNewBoardName(e.target.value)}
-                />
-                <button onClick={(e) => createHandler(e)}>Create new board</button>
-            </form>
-        </>
+        <div className={classes.mainContainer}>
+            <Tabs/>
+            <Board/>
+        </div>
     )
 }

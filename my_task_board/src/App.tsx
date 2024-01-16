@@ -7,14 +7,14 @@ import {HomePage} from './pages/HomePage/HomePage'
 
 function App() {
   return (
-    <>
+    <div className="App">
     <Navigation/>
     <Routes>
       <Route path="/" element={<HomePage/>} />
       <Route path="/about" element={<AboutPage/>} /> 
     </Routes>
 
-    </>
+    </div>
   );
 }
 

@@ -1,3 +1,9 @@
 .wrong {
     border-color: red
 }
+
+.mainContainer {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 2rem 100%;
+}
