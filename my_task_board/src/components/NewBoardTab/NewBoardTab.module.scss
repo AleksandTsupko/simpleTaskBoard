@@ -2,13 +2,13 @@
     z-index: 0;
     height: 100%;
     width: 1.5rem;
-    background-color:#1C2C3E;
-    color: #A9B4C2;
+    background-color:var(--board-bg-color);
+    color: var(--main-text-color);
     border-top-right-radius: 0.2rem;
     border-top-left-radius: 0.2rem;
-    border-left: 1px solid #A9B4C2;
-    border-top: 1px solid #A9B4C2;
-    border-right: 1px solid #A9B4C2;
+    border-left: 1px solid var(--additional-color);
+    border-top: 1px solid var(--additional-color);
+    border-right: 1px solid var(--additional-color);
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -19,6 +19,7 @@
         width: 1rem;
         height: 1rem;
         background-color: green;
+        cursor: pointer;
     }
     
 }
@@ -36,5 +37,6 @@
         border-radius: 2px;
         border: none;
         padding: 0;
+        outline: none;
     }
 }

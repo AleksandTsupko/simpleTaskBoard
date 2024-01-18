@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react"
 import classes from "./NewBoardTab.module.scss"
+import { useActions } from "../../hooks/actions"
 
 export function NewBoardTab() {
+    const {addBoard} = useActions()
     const [isActive, setIsActive] = useState(false)
     const [nameOfNewBoard, setNameOfNewBoard] = useState("")
     const inputRef = useRef<HTMLInputElement>(null)
@@ -16,20 +18,19 @@ export function NewBoardTab() {
     const iconHandler = (e: React.MouseEvent) => {
         if (isActive && nameOfNewBoard && nameOfNewBoard.length > 3) {
             if (timeoutOnBlurRef.current) clearTimeout(timeoutOnBlurRef.current)
-            console.log(nameOfNewBoard)
+            addBoard(nameOfNewBoard)
+            setIsActive(false)
         } else {
             setIsActive(true)
-            // inputRef.current.focus()
         }
-        
     }
 
     const inputOnBlurHandler = (e: React.FocusEvent) => {
-        const id = setTimeout(() => {
+        const timeoutId = setTimeout(() => {
             setIsActive(false)
             setNameOfNewBoard("")
         }, 3000)
-        timeoutOnBlurRef.current = id
+        timeoutOnBlurRef.current = timeoutId
     }
 
     const inputOnFocusHandler = () => {
