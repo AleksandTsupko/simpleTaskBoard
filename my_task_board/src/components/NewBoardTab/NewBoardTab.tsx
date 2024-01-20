@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState } from "react"
 import classes from "./NewBoardTab.module.scss"
 import { useActions } from "../../hooks/actions"
+import supabase from "../../store/supabase/supabaseClient"
+import { useCreateNewBoardMutation } from "../../store/supabase/supabase.api"
 
 export function NewBoardTab() {
-    const {addBoard} = useActions()
+    // const {addBoard} = useActions()
     const [isActive, setIsActive] = useState(false)
     const [nameOfNewBoard, setNameOfNewBoard] = useState("")
     const inputRef = useRef<HTMLInputElement>(null)
     const timeoutOnBlurRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+    const [createNewBoard,{ isLoading, isError}] = useCreateNewBoardMutation()
 
     useEffect(() => {
         if (isActive && inputRef.current) {
@@ -18,7 +21,7 @@ export function NewBoardTab() {
     const iconHandler = (e: React.MouseEvent) => {
         if (isActive && nameOfNewBoard && nameOfNewBoard.length > 3) {
             if (timeoutOnBlurRef.current) clearTimeout(timeoutOnBlurRef.current)
-            addBoard(nameOfNewBoard)
+            createNewBoard(nameOfNewBoard)
             setIsActive(false)
         } else {
             setIsActive(true)

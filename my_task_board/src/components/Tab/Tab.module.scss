@@ -4,6 +4,7 @@
     min-width: 3rem;
     max-width: 6rem;
     overflow: hidden;
+    cursor: pointer;
     background-color:var(--board-bg-color);
     color: var(--main-text-color);
     border-top-right-radius: 0.2rem;
@@ -11,7 +12,8 @@
     border-left: 1px solid var(--additional-color);
     border-top: 1px solid var(--additional-color);
     border-right: 1px solid var(--additional-color);
-    .active {
-        z-index: 2;
-    }
+}
+
+.tab.active {
+    z-index: 2;
 }
