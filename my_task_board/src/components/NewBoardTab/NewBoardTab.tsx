@@ -23,6 +23,7 @@ export function NewBoardTab() {
             if (timeoutOnBlurRef.current) clearTimeout(timeoutOnBlurRef.current)
             createNewBoard(nameOfNewBoard)
             setIsActive(false)
+            setNameOfNewBoard("")
         } else {
             setIsActive(true)
         }

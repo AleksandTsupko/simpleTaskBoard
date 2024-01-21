@@ -1,5 +1,5 @@
 import { createApi, fakeBaseQuery, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { IBoard, ISupabaseResponce } from "../../models/models"
+import { IBoard, IStage, ISupabaseResponce } from "../../models/models"
 import supabase from "./supabaseClient"
 import { log } from "console"
 
@@ -22,13 +22,26 @@ export const supabaseApi = createApi({
             queryFn: async (boardName: string) => {
                 const { data, error }: any = await supabase
                     .from("board")
-                    .insert([{title: boardName}])
+                    .insert([{
+                        title: boardName,
+                        stages: ["Анализ"]
+                    }])
 
                 return { data }
             },
             invalidatesTags: ["Boards"]
+        }),
+        getStages: build.query<IStage[], number>({
+            queryFn: async (boardId: number) => {
+                const { data, error }: any = await supabase
+                    .from("stages")
+                    .select("*")
+                    .eq("boardId", boardId)
+
+                return { data }
+            }
         })
     })
 
 })
-export const {useGetBoardsQuery, useCreateNewBoardMutation} = supabaseApi
+export const {useGetBoardsQuery, useCreateNewBoardMutation, useGetStagesQuery} = supabaseApi
