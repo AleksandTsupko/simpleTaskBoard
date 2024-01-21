@@ -5,13 +5,11 @@ import { IBoard } from "../../models/models"
 const LS_BOARDS_KEY = "boards"
 
 interface BoardsState {
-    boards: IBoard[],
     selectedBoard: string | null
 }
 
 const initialState: BoardsState = {
-    boards: JSON.parse(localStorage.getItem(LS_BOARDS_KEY) ?? "[]"),
-    selectedBoard: JSON.parse(localStorage.getItem(LS_BOARDS_KEY) ?? "[]")[0]
+    selectedBoard: localStorage.getItem("selectedBoard") ?? null
 }
 
 export const supabaseSlice = createSlice({
@@ -20,6 +18,7 @@ export const supabaseSlice = createSlice({
     reducers: {
         selectBoard(state, action: PayloadAction<string>) {
             state.selectedBoard = action.payload
+            localStorage.setItem("selectedBoard", action.payload)
         }
 
         

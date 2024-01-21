@@ -1,6 +1,6 @@
 import { click } from "@testing-library/user-event/dist/click"
 import classes from "./Tab.module.scss"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useAppSelector } from "../../hooks/redux"
 import { useActions } from "../../hooks/actions"
 

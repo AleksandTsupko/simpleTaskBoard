@@ -5,20 +5,27 @@ import { NewBoardTab } from "../NewBoardTab/NewBoardTab"
 import { Tab } from "../Tab/Tab"
 import classes from "./Tabs.module.scss"
 import supabase from "../../store/supabase/supabaseClient"
+import { useActions } from "../../hooks/actions"
 
 export function Tabs() {
-    // const { boards } = useAppSelector(state => state.supabase)
     const { data: boards } = useGetBoardsQuery("")
-    console.log(boards);
+    const { selectBoard} = useActions()
+    const { selectedBoard } = useAppSelector(state => state.supabase)
 
-
+    useEffect(() => {
+        if (selectedBoard === null && boards && boards.length > 0) {
+            selectBoard(boards[0].title)
+            console.log("test");
+            
+        }
+    },[boards])
     
     
     return (
         <div className={classes.tabs}>
             <NewBoardTab/>
             {boards && boards.length > 0 && boards.map((board) => (
-                <Tab key={board.title} title={board.title}/>
+                <Tab key={board.id} title={board.title}/>
             ))}
         </div>
     )

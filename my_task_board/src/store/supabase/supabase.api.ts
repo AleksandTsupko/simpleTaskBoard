@@ -6,6 +6,7 @@ import { log } from "console"
 export const supabaseApi = createApi({
     reducerPath: "supabase/api",
     baseQuery: fakeBaseQuery(),
+    tagTypes: ["Boards"],
     endpoints: (build) => ({
         getBoards: build.query<IBoard[], string>({
             queryFn: async () => {
@@ -14,7 +15,8 @@ export const supabaseApi = createApi({
                     .select("*")
 
                 return { data }
-            }
+            },
+            providesTags: res => ["Boards"]
         }),
         createNewBoard: build.mutation<IBoard, string>({
             queryFn: async (boardName: string) => {
@@ -23,7 +25,8 @@ export const supabaseApi = createApi({
                     .insert([{title: boardName}])
 
                 return { data }
-            }
+            },
+            invalidatesTags: ["Boards"]
         })
     })
 
