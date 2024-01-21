@@ -3,22 +3,23 @@ import classes from "./Tab.module.scss"
 import { useEffect, useState } from "react"
 import { useAppSelector } from "../../hooks/redux"
 import { useActions } from "../../hooks/actions"
+import { IBoard } from "../../models/models"
 
-export function Tab({title}: {title: string} ) {
-    const {selectBoard} = useActions()
+export function Tab({board}: {board: IBoard} ) {
+    const { selectBoard } = useActions()
     // const [isActive, setIsActive] = useState<boolean>(false)
     const { selectedBoard } = useAppSelector(state => state.supabase)
 
     const clickHandler = () => {
-        selectBoard(title)
+        selectBoard(board.id)
     }
 
     return (
         <div 
-            className={selectedBoard === title ? `${classes.tab} ${classes.active}` : classes.tab}
+            className={selectedBoard === board.id ? `${classes.tab} ${classes.active}` : classes.tab}
             onClick={clickHandler}
         >
-            <span>{title}</span>
+            <span>{board.title}</span>
         </div>
     )
 }

@@ -5,23 +5,21 @@ import { IBoard } from "../../models/models"
 const LS_BOARDS_KEY = "boards"
 
 interface BoardsState {
-    selectedBoard: string | null
+    selectedBoard: number | null
 }
 
 const initialState: BoardsState = {
-    selectedBoard: localStorage.getItem("selectedBoard") ?? null
+    selectedBoard: Number(localStorage.getItem("selectedBoard") ?? null)
 }
 
 export const supabaseSlice = createSlice({
     name: "supabase",
     initialState,
     reducers: {
-        selectBoard(state, action: PayloadAction<string>) {
+        selectBoard(state, action: PayloadAction<number>) {
             state.selectedBoard = action.payload
-            localStorage.setItem("selectedBoard", action.payload)
+            localStorage.setItem("selectedBoard", String(action.payload))
         }
-
-        
     }
 })
 

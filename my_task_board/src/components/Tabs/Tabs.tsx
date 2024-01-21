@@ -9,23 +9,20 @@ import { useActions } from "../../hooks/actions"
 
 export function Tabs() {
     const { data: boards } = useGetBoardsQuery("")
-    const { selectBoard} = useActions()
+    const { selectBoard } = useActions()
     const { selectedBoard } = useAppSelector(state => state.supabase)
 
     useEffect(() => {
         if (selectedBoard === null && boards && boards.length > 0) {
-            selectBoard(boards[0].title)
-            console.log("test");
-            
+            selectBoard(boards[0].id)
         }
     },[boards])
-    
     
     return (
         <div className={classes.tabs}>
             <NewBoardTab/>
             {boards && boards.length > 0 && boards.map((board) => (
-                <Tab key={board.id} title={board.title}/>
+                <Tab key={board.id} board={board}/>
             ))}
         </div>
     )

@@ -2,4 +2,7 @@
     z-index: 1;
     background-color: var(--board-bg-color);
     border-top: 1px solid var(--additional-color);
+    display: grid;
+    padding: 0.5rem;
+    gap: 0.5rem;
 }
