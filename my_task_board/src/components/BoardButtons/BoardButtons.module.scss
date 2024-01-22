@@ -1,0 +1,11 @@
+.boardButtons {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.2rem;
+    // background-color: #888B8F;
+    background-color: var(--board-bg-color);
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    height: 1rem;
+}

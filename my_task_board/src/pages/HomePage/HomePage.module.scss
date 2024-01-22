@@ -3,7 +3,7 @@
 }
 
 .mainContainer {
-    height: 100%;
+    height: calc(100% - 5rem);
     display: grid;
     grid-template-rows: 2rem 100%;
 }

@@ -5,11 +5,13 @@ import { IBoard } from "../../models/models"
 const LS_BOARDS_KEY = "boards"
 
 interface BoardsState {
-    selectedBoard: number | null
+    selectedBoard: number | null,
+    isShowModal: boolean
 }
 
 const initialState: BoardsState = {
-    selectedBoard: Number(localStorage.getItem("selectedBoard") ?? null)
+    selectedBoard: Number(localStorage.getItem("selectedBoard") ?? null),
+    isShowModal: false
 }
 
 export const supabaseSlice = createSlice({
@@ -19,6 +21,9 @@ export const supabaseSlice = createSlice({
         selectBoard(state, action: PayloadAction<number>) {
             state.selectedBoard = action.payload
             localStorage.setItem("selectedBoard", String(action.payload))
+        },
+        setIsShowModal(state, action: PayloadAction<boolean>) {
+            state.isShowModal = action.payload
         }
     }
 })
