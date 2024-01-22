@@ -5,12 +5,14 @@ import { useGetBoardsQuery, useGetStagesQuery } from "../../store/supabase/supab
 import classes from "./Board.module.scss"
 import { Stage } from "../Stage/Stage"
 import { log } from "console"
+import { BoardButton } from "../BoardButton/BoardButton"
+import { BoardButtons } from "../BoardButtons/BoardButtons"
 
 export function Board() {
-    const { data: boards } = useGetBoardsQuery("")
+    // const { data: boards } = useGetBoardsQuery("")
     const { selectedBoard } = useAppSelector(state => state.supabase)
-    console.log(selectedBoard)
     const { data: stages } = useGetStagesQuery(selectedBoard ? selectedBoard : 0)
+
     // useEffect(() => {
     //     return () => {
     //         if (boards) {
@@ -23,17 +25,26 @@ export function Board() {
     // }, [boards, selectedBoard])
 
     return (
-        <div 
-            className={classes.board}
-            style={{gridTemplateColumns: `repeat(${stages ? stages.length : "1"}, 1fr)`}}
-        >
-            {!selectedBoard && <span>Не выбрана доска</span>}
+        <>
+            <div className={classes.mainBoardContainer}>
+                <BoardButtons />
 
-            {selectedBoard && stages && stages.map((stage) => (
-                <Stage key={stage.id} title={stage.title}/>
-            )
-            )}
-        </div>
+                <div
+                    className={classes.board}
+                    style={{ gridTemplateColumns: `repeat(${stages ? stages.length : "1"}, 1fr)` }}
+                >
+
+
+                    {!selectedBoard && <span>Не выбрана доска</span>}
+
+                    {selectedBoard && stages && stages.map((stage) => (
+                        <Stage key={stage.id} title={stage.title} />
+                    )
+                    )}
+                </div>
+            </div>
+
+        </>
 
     )
 }
