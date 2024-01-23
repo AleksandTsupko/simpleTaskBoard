@@ -1,33 +1,40 @@
-import { useRef } from "react"
+import { FC, LegacyRef, ReactNode, forwardRef, useRef } from "react"
 import classes from "./Modal.module.scss"
 import { useAppSelector } from "../../hooks/redux"
 import { useActions } from "../../hooks/actions"
+import { createPortal } from "react-dom"
 
-export function Modal() {
-    const { setIsShowModal } = useActions()
+export const Modal = ({children, isActive, setIsActive}:{children : ReactNode, isActive : boolean, setIsActive: Function}) => {
+    // const { setIsShowModal } = useActions()
     // const [isActive, setIsActive] = useState<boolean>(false)
     // const { selectedBoard } = useAppSelector(state => state.supabase)
     // const buttonRef = useRef<H
-    const { isShowModal } = useAppSelector(state => state.supabase)
+    // const { isShowModal } = useAppSelector(state => state.supabase)
+    const root = document.getElementById("root")
     const closeHandler = () => {
-        // selectBoard(board.id)
+        setIsActive(false)
     }
 
-    return (
-        <div className={isShowModal ? `${classes.active} ${classes.modal}` : classes.modal} onClick={() => setIsShowModal(false)}>
-            <div className={classes.modalDialog} onClick={e => e.stopPropagation()}>
-                <div className='modal-header'>
-                    <h3 className='modal-title'>title</h3>
-                    <span className='modal-close' onClick={closeHandler}>
-                        +
-                    </span>
-                </div>
-                <div className='modal-body'>
-                    <div className='modal-content'>
-                        {/* {content} */}
+    if (root) {
+        return (
+            createPortal(<div className={isActive ? `${classes.active} ${classes.modal}` : classes.modal} onClick={closeHandler}>
+                <div className={classes.modalDialog} onClick={e => e.stopPropagation()}>
+                    <div className={classes.modalHeader}>
+                        <h3 className={classes.modalTitle}>title</h3>
+                        <span className={classes.modalClose} onClick={closeHandler}>
+                            +
+                        </span>
+                    </div>
+                    <div className={classes.modalBody}>
+                        <div className={classes.modalContent}>
+                            {children}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    )
+            </div>, root)
+        )
+    } else {
+        return null
+    }
+    
 }

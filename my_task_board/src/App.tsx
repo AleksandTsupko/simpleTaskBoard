@@ -15,7 +15,6 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
       </Routes>
-      <Modal/>
     </div>
   );
 }
