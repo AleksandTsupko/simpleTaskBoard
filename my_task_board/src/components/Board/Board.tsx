@@ -3,10 +3,10 @@ import { useAppSelector } from "../../hooks/redux"
 import { IBoard, IStage } from "../../models/models"
 import { useGetBoardsQuery, useGetStagesQuery } from "../../store/supabase/supabase.api"
 import classes from "./Board.module.scss"
-import { Stage } from "../Stage/Stage"
+import { Stage } from "./Stage/Stage"
 import { log } from "console"
-import { BoardButton } from "../BoardButton/BoardButton"
-import { BoardButtons } from "../BoardButtons/BoardButtons"
+import { BoardButton } from "./BoardButtons/BoardButton/BoardButton"
+import { BoardButtons } from "./BoardButtons/BoardButtons"
 
 export function Board() {
     // const { data: boards } = useGetBoardsQuery("")

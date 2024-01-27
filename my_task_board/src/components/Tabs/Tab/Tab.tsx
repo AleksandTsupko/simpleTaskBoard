@@ -1,9 +1,9 @@
 import { click } from "@testing-library/user-event/dist/click"
 import classes from "./Tab.module.scss"
 import { useEffect, useState } from "react"
-import { useAppSelector } from "../../hooks/redux"
-import { useActions } from "../../hooks/actions"
-import { IBoard } from "../../models/models"
+import { useAppSelector } from "../../../hooks/redux"
+import { useActions } from "../../../hooks/actions"
+import { IBoard } from "../../../models/models"
 
 export function Tab({board}: {board: IBoard} ) {
     const { selectBoard } = useActions()

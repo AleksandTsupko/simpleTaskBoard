@@ -1,7 +1,8 @@
 import { createApi, fakeBaseQuery, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { IBoard, IStage, ISupabaseResponce } from "../../models/models"
+import { IBoard, IStage, ISupabaseResponce, ITask } from "../../models/models"
 import supabase from "./supabaseClient"
 import { log } from "console"
+import { INewTaskValues } from "../../components/Board/BoardButtons/NewTaskForm/NewTaskForm"
 
 export const supabaseApi = createApi({
     reducerPath: "supabase/api",
@@ -11,7 +12,7 @@ export const supabaseApi = createApi({
         getBoards: build.query<IBoard[], string>({
             queryFn: async () => {
                 const { data, error }: any = await supabase
-                    .from("board")
+                    .from("boards")
                     .select("*")
 
                 return { data }
@@ -21,7 +22,7 @@ export const supabaseApi = createApi({
         createNewBoard: build.mutation<IBoard, string>({
             queryFn: async (boardName: string) => {
                 const { data, error }: any = await supabase
-                    .from("board")
+                    .from("boards")
                     .insert([{
                         title: boardName,
                         stages: ["Анализ"]
@@ -40,8 +41,27 @@ export const supabaseApi = createApi({
 
                 return { data }
             }
+        }),
+        createNewTask: build.mutation<ITask, INewTaskValues>({
+            queryFn: async (newTaskValues: INewTaskValues) => {
+                const { data, error }: any = await supabase
+                    .from("tasks")
+                    .insert([{
+                        title: newTaskValues.title,
+                        text: newTaskValues.text,
+                        boardId: newTaskValues.boardId,
+                        stageId: newTaskValues.stage?.id
+                    }])
+
+                return { data }
+            },
+            // invalidatesTags: ["Tasks"]
         })
     })
 
 })
-export const {useGetBoardsQuery, useCreateNewBoardMutation, useGetStagesQuery} = supabaseApi
+export const { useGetBoardsQuery, 
+    useCreateNewBoardMutation, 
+    useGetStagesQuery, 
+    useCreateNewTaskMutation, 
+    useLazyGetStagesQuery } = supabaseApi

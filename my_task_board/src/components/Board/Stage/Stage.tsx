@@ -1,8 +1,8 @@
 import { click } from "@testing-library/user-event/dist/click"
 import classes from "./Stage.module.scss"
 import { useEffect, useState } from "react"
-import { useAppSelector } from "../../hooks/redux"
-import { useActions } from "../../hooks/actions"
+import { useAppSelector } from "../../../hooks/redux"
+import { useActions } from "../../../hooks/actions"
 
 export function Stage({title}: {title: string} ) {
 
