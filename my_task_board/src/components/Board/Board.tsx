@@ -36,7 +36,7 @@ export function Board() {
                     {!selectedBoard && <span>Не выбрана доска</span>}
 
                     {selectedBoard && tasks && stages && stages.map((stage) => (
-                        <Stage key={stage.id} title={stage.title} tasks={tasks}/>
+                        <Stage key={stage.id} stage={stage} tasks={tasks}/>
                     )
                     )}
                 </div>

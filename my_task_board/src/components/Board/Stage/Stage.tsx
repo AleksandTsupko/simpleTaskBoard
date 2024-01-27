@@ -3,14 +3,14 @@ import classes from "./Stage.module.scss"
 import { useEffect, useState } from "react"
 import { useAppSelector } from "../../../hooks/redux"
 import { useActions } from "../../../hooks/actions"
-import { ITask } from "../../../models/models"
+import { IStage, ITask } from "../../../models/models"
 
 interface IStageComponent {
-    title: string,
+    stage: IStage,
     tasks: ITask[]
 }
 
-export function Stage({title, tasks}: IStageComponent ) {
+export function Stage({stage, tasks}: IStageComponent ) {
 
 
     return (
@@ -19,11 +19,11 @@ export function Stage({title, tasks}: IStageComponent ) {
             // onClick={clickHandler}
         >
             <div className={classes.stageTitle}>
-                <span style={{color: "white"}}>{title}</span>
+                <span style={{color: "white"}}>{stage.title}</span>
             </div>
             
             <div className={classes.stageBody}>
-                {tasks && tasks.map((task) => (
+                {tasks && tasks.filter((task) => (task.stageId ===  stage.id)).map((task) => (
                     <span key={task.id} style={{color: "white"}}>{task.title}</span>
                 ))}
             </div>
