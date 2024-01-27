@@ -16,7 +16,7 @@ export function BoardButtons() {
 
     return (
         <>
-        <Modal title="Create new task" isActive={isActive} setIsActive={setIsActive}><NewTaskForm/></Modal>
+        <Modal title="Create new task" isActive={isActive} setIsActive={setIsActive}><NewTaskForm setIsActive={setIsActive}/></Modal>
         <div className={classes.boardButtons}>
             <BoardButton title="New task" clickHandler={newTaskHandler}/>
         </div>

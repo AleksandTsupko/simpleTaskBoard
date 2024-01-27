@@ -1,4 +1,4 @@
-import { ChangeEvent, ChangeEventHandler, SyntheticEvent, useEffect, useRef, useState } from "react"
+import { ChangeEvent, ChangeEventHandler, Dispatch, SetStateAction, SyntheticEvent, useEffect, useRef, useState } from "react"
 import { BoardButton } from "../BoardButton/BoardButton"
 import { useAppSelector } from "../../../../hooks/redux"
 import { useCreateNewTaskMutation, useGetStagesQuery, useLazyGetStagesQuery } from "../../../../store/supabase/supabase.api"
@@ -12,7 +12,7 @@ export interface INewTaskValues {
     stage: IStage | null
 }
 
-export const NewTaskForm = () => {
+export const NewTaskForm = ({setIsActive} : {setIsActive: Dispatch<SetStateAction<boolean>>}) => {
     const { selectedBoard } = useAppSelector(state => state.supabase)
     const [getStages, { data: stages }] = useLazyGetStagesQuery()
     const [createTask, { isError, isLoading }] = useCreateNewTaskMutation()
@@ -27,7 +27,6 @@ export const NewTaskForm = () => {
 
     useEffect(() => {
         if (selectedBoard) {
-            console.log("1 " + selectedBoard)
             getStages(selectedBoard)
         }
         setNewTaskValues((prev) => {
@@ -38,14 +37,13 @@ export const NewTaskForm = () => {
 
     useEffect(() => {
         if (selectedBoard) {
-            ;
-            console.log("2")
             getStages(selectedBoard)
         }
     }, [])
 
     const createBtnHandler = () => {
         createTask(newTaskValues);
+        setIsActive(false);
     }
 
     const changeHandler = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {

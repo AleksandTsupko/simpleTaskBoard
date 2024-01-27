@@ -1,10 +1,18 @@
-import { FC, LegacyRef, ReactNode, forwardRef, useRef } from "react"
+import { FC, LegacyRef, ReactComponentElement, ReactNode, ReactPortal, forwardRef, useRef } from "react"
 import classes from "./Modal.module.scss"
 import { useAppSelector } from "../../hooks/redux"
 import { useActions } from "../../hooks/actions"
 import { createPortal } from "react-dom"
 
-export const Modal = ({children, title, isActive, setIsActive}:{children : ReactNode, title: string, isActive : boolean, setIsActive: Function}) => {
+interface IModal {
+    children: ReactNode, 
+    title: string, 
+    isActive : boolean, 
+    setIsActive: Function
+
+}
+
+export const Modal = ({children, title, isActive, setIsActive}: IModal): ReactPortal | null=> {
     // const { setIsShowModal } = useActions()
     // const [isActive, setIsActive] = useState<boolean>(false)
     // const { selectedBoard } = useAppSelector(state => state.supabase)
