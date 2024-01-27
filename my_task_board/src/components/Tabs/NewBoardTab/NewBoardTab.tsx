@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react"
 import classes from "./NewBoardTab.module.scss"
-import { useActions } from "../../hooks/actions"
-import supabase from "../../store/supabase/supabaseClient"
-import { useCreateNewBoardMutation } from "../../store/supabase/supabase.api"
+import { useActions } from "../../../hooks/actions"
+import supabase from "../../../store/supabase/supabaseClient"
+import { useCreateNewBoardMutation } from "../../../store/supabase/supabase.api"
 
 export function NewBoardTab() {
     // const {addBoard} = useActions()

@@ -1,8 +1,8 @@
 import { useEffect } from "react"
 import { useAppSelector } from "../../hooks/redux"
 import { useGetBoardsQuery } from "../../store/supabase/supabase.api"
-import { NewBoardTab } from "../NewBoardTab/NewBoardTab"
-import { Tab } from "../Tab/Tab"
+import { NewBoardTab } from "./NewBoardTab/NewBoardTab"
+import { Tab } from "./Tab/Tab"
 import classes from "./Tabs.module.scss"
 import supabase from "../../store/supabase/supabaseClient"
 import { useActions } from "../../hooks/actions"
@@ -16,13 +16,13 @@ export function Tabs() {
         if (selectedBoard === null && boards && boards.length > 0) {
             selectBoard(boards[0].id)
         }
-    },[boards])
-    
+    }, [boards])
+
     return (
         <div className={classes.tabs}>
-            <NewBoardTab/>
+            <NewBoardTab />
             {boards && boards.length > 0 && boards.map((board) => (
-                <Tab key={board.id} board={board}/>
+                <Tab key={board.id} board={board} />
             ))}
         </div>
     )

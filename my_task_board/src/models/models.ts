@@ -12,6 +12,16 @@ export interface IStage {
     boardId: number
 }
 
+export interface ITask {
+    id: number;
+    created_at: Date;
+    title: string;
+    text: string;
+    stageId: number;
+    boardId: number
+}
+
+
 export interface ISupabaseResponce {
     data: any,
     error: any
