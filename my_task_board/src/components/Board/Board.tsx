@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useAppSelector } from "../../hooks/redux"
 import { IBoard, IStage } from "../../models/models"
-import { useGetBoardsQuery, useGetStagesQuery } from "../../store/supabase/supabase.api"
+import { useGetBoardsQuery, useLazyGetStagesQuery, useLazyGetTasksQuery } from "../../store/supabase/supabase.api"
 import classes from "./Board.module.scss"
 import { Stage } from "./Stage/Stage"
 import { log } from "console"
@@ -11,18 +11,16 @@ import { BoardButtons } from "./BoardButtons/BoardButtons"
 export function Board() {
     // const { data: boards } = useGetBoardsQuery("")
     const { selectedBoard } = useAppSelector(state => state.supabase)
-    const { data: stages } = useGetStagesQuery(selectedBoard ? selectedBoard : 0)
+    const [getStages, { data: stages }] = useLazyGetStagesQuery()
+    const [getTasks, { isError, isLoading, data: tasks }] = useLazyGetTasksQuery()
 
-    // useEffect(() => {
-    //     return () => {
-    //         if (boards) {
-    //             setBoard(boards?.filter((board) => board.id === Number(selectedBoard))[0])
-    //             console.log(boards)
-    //             console.log(board)
-    //             console.log("selectedBoard1 " + selectedBoard)
-    //         }
-    //     }
-    // }, [boards, selectedBoard])
+    useEffect(() => {
+        if (selectedBoard) {
+            getStages(selectedBoard)
+            getTasks(selectedBoard)            
+        }
+        
+    },[selectedBoard])
 
     return (
         <>
@@ -37,8 +35,8 @@ export function Board() {
 
                     {!selectedBoard && <span>Не выбрана доска</span>}
 
-                    {selectedBoard && stages && stages.map((stage) => (
-                        <Stage key={stage.id} title={stage.title} />
+                    {selectedBoard && tasks && stages && stages.map((stage) => (
+                        <Stage key={stage.id} title={stage.title} tasks={tasks}/>
                     )
                     )}
                 </div>

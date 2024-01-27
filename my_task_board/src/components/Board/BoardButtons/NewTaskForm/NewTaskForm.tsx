@@ -35,12 +35,6 @@ export const NewTaskForm = ({setIsActive} : {setIsActive: Dispatch<SetStateActio
 
     }, [selectedBoard])
 
-    useEffect(() => {
-        if (selectedBoard) {
-            getStages(selectedBoard)
-        }
-    }, [])
-
     const createBtnHandler = () => {
         createTask(newTaskValues);
         setIsActive(false);

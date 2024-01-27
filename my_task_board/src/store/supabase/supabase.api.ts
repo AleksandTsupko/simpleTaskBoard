@@ -7,7 +7,7 @@ import { INewTaskValues } from "../../components/Board/BoardButtons/NewTaskForm/
 export const supabaseApi = createApi({
     reducerPath: "supabase/api",
     baseQuery: fakeBaseQuery(),
-    tagTypes: ["Boards"],
+    tagTypes: ["Boards","Tasks"],
     endpoints: (build) => ({
         getBoards: build.query<IBoard[], string>({
             queryFn: async () => {
@@ -55,8 +55,19 @@ export const supabaseApi = createApi({
 
                 return { data }
             },
-            // invalidatesTags: ["Tasks"]
-        })
+            invalidatesTags: ["Tasks"]
+        }),
+        getTasks: build.query<ITask[], number>({
+            queryFn: async (boardId: number) => {
+                const { data, error }: any = await supabase
+                    .from("tasks")
+                    .select("*")
+                    .eq("boardId", boardId)
+
+                return { data }
+            },
+            providesTags: res => ["Tasks"]
+        }),
     })
 
 })
@@ -64,4 +75,5 @@ export const { useGetBoardsQuery,
     useCreateNewBoardMutation, 
     useGetStagesQuery, 
     useCreateNewTaskMutation, 
-    useLazyGetStagesQuery } = supabaseApi
+    useLazyGetStagesQuery,
+    useLazyGetTasksQuery } = supabaseApi

@@ -3,8 +3,14 @@ import classes from "./Stage.module.scss"
 import { useEffect, useState } from "react"
 import { useAppSelector } from "../../../hooks/redux"
 import { useActions } from "../../../hooks/actions"
+import { ITask } from "../../../models/models"
 
-export function Stage({title}: {title: string} ) {
+interface IStageComponent {
+    title: string,
+    tasks: ITask[]
+}
+
+export function Stage({title, tasks}: IStageComponent ) {
 
 
     return (
@@ -17,7 +23,9 @@ export function Stage({title}: {title: string} ) {
             </div>
             
             <div className={classes.stageBody}>
-
+                {tasks && tasks.map((task) => (
+                    <span key={task.id} style={{color: "white"}}>{task.title}</span>
+                ))}
             </div>
         </div>
     )
