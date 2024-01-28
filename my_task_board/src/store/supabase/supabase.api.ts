@@ -1,5 +1,5 @@
 import { createApi, fakeBaseQuery, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { IBoard, IStage, ISupabaseResponce, ITask } from "../../models/models"
+import { IBoard, IChangeStageForTaskReq, IStage, ISupabaseResponce, ITask } from "../../models/models"
 import supabase from "./supabaseClient"
 import { log } from "console"
 import { INewTaskValues } from "../../components/Board/BoardButtons/NewTaskForm/NewTaskForm"
@@ -68,6 +68,17 @@ export const supabaseApi = createApi({
             },
             providesTags: res => ["Tasks"]
         }),
+        changeStageForTask: build.mutation<ITask, IChangeStageForTaskReq>({
+            queryFn: async ({taskId, stageId}: IChangeStageForTaskReq) => {
+                const { data, error }: any = await supabase
+                    .from("tasks")
+                    .update({stageId})
+                    .eq("id", taskId)
+    
+                return { data }
+            },
+            invalidatesTags: ["Tasks"]
+        }),
     })
 
 })
@@ -76,4 +87,5 @@ export const { useGetBoardsQuery,
     useGetStagesQuery, 
     useCreateNewTaskMutation, 
     useLazyGetStagesQuery,
-    useLazyGetTasksQuery } = supabaseApi
+    useLazyGetTasksQuery,
+    useChangeStageForTaskMutation } = supabaseApi

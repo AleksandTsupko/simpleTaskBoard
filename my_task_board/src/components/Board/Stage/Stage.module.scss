@@ -4,10 +4,11 @@
     justify-content: start;
     align-items: center;
     border: 1px solid var(--additional-color);
+    border-radius: 2px;
 }
 
 .stageTitle {
-    width: 100%;
+    width: 100%;  
     height: 2rem;
     display: flex;
     flex-direction: row;
@@ -17,6 +18,10 @@
 
 .stageBody {
     height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
+    // padding-left: 0.2rem;
+    // padding-right: 0.2rem;
 }

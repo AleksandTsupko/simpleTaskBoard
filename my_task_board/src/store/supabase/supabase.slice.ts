@@ -1,17 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import supabase from "./supabaseClient"
-import { IBoard } from "../../models/models"
+import { IBoard, ITask } from "../../models/models"
 
 const LS_BOARDS_KEY = "boards"
 
 interface BoardsState {
     selectedBoard: number | null,
-    isShowModal: boolean
+    isShowModal: boolean,
+    draggedTaskId: number | null
 }
 
 const initialState: BoardsState = {
     selectedBoard: Number(localStorage.getItem("selectedBoard") ?? null),
-    isShowModal: false
+    isShowModal: false,
+    draggedTaskId: null
 }
 
 export const supabaseSlice = createSlice({
@@ -24,6 +26,9 @@ export const supabaseSlice = createSlice({
         },
         setIsShowModal(state, action: PayloadAction<boolean>) {
             state.isShowModal = action.payload
+        },
+        setDraggedTaskId(state, action: PayloadAction<number | null>) {
+            state.draggedTaskId = action.payload
         }
     }
 })
