@@ -1,0 +1,42 @@
+.taskContainer {
+    max-height: 12rem;
+    min-height: min-content;
+    background-color: var(--additional-color);
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.2rem;
+}
+
+.taskTitle {
+    width: 100%;
+    height: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.taskText {
+    width: 100%;
+    height: 100%;
+    overflow-wrap: break-word;
+    
+}
+
+.taskFooter {
+    width: 100%;
+    height: 1.5rem;  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+}
+
+.dragged { 
+    opacity: 0.5;
+    background-color: red;
+}

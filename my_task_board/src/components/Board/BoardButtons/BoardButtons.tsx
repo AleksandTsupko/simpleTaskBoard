@@ -5,20 +5,29 @@ import classes from "./BoardButtons.module.scss"
 import { Modal } from "../../Modal/Modal"
 import { useState } from "react"
 import { NewTaskForm } from "./NewTaskForm/NewTaskForm"
+import { NewStageForm } from "./NewStageForm/NewStageForm"
 
 export function BoardButtons() {
-    // const { setIsShowModal } = useActions()
-    const [isActive, setIsActive] = useState<boolean>(false)
+    const [isActiveNewTask, setIsActiveNewTask] = useState<boolean>(false)
+    const [isActiveNewStage, setIsActiveNewStage] = useState<boolean>(false)
 
     const newTaskHandler = () => {
-        setIsActive(true)
+        setIsActiveNewTask(true);
+        setIsActiveNewStage(false);
+    }
+
+    const newStageHandler = () => {
+        setIsActiveNewStage(true);
+        setIsActiveNewTask(false);
     }
 
     return (
         <>
-        <Modal title="Create new task" isActive={isActive} setIsActive={setIsActive}><NewTaskForm/></Modal>
+        <Modal title="Create new task" isActive={isActiveNewTask} setIsActive={setIsActiveNewTask}><NewTaskForm setIsActive={setIsActiveNewTask}/></Modal>
+        <Modal title="Create new stage" isActive={isActiveNewStage} setIsActive={setIsActiveNewStage}><NewStageForm setIsActive={setIsActiveNewStage}/></Modal>
         <div className={classes.boardButtons}>
             <BoardButton title="New task" clickHandler={newTaskHandler}/>
+            <BoardButton title="New stage" clickHandler={newStageHandler}/>
         </div>
         </>
     ) 
