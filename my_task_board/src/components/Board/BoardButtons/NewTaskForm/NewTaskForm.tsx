@@ -1,4 +1,4 @@
-import { ChangeEvent, ChangeEventHandler, Dispatch, SetStateAction, SyntheticEvent, useEffect, useRef, useState } from "react"
+import { ChangeEvent, ChangeEventHandler, Dispatch, SetStateAction, SyntheticEvent, useEffect, useId, useRef, useState } from "react"
 import { BoardButton } from "../BoardButton/BoardButton"
 import { useAppSelector } from "../../../../hooks/redux"
 import { useCreateNewTaskMutation, useGetStagesQuery, useLazyGetStagesQuery } from "../../../../store/supabase/supabase.api"
@@ -17,6 +17,9 @@ export const NewTaskForm = ({setIsActive} : {setIsActive: Dispatch<SetStateActio
     const [getStages, { data: stages }] = useLazyGetStagesQuery()
     const [createTask, { isError, isLoading }] = useCreateNewTaskMutation()
     const [dropdown, setDropdown] = useState(false)
+    const titleInputId = useId()
+    const textareaId = useId()
+    const stageInputId = useId()
 
     const [newTaskValues, setNewTaskValues] = useState<INewTaskValues>({
         title: "",
@@ -56,26 +59,26 @@ export const NewTaskForm = ({setIsActive} : {setIsActive: Dispatch<SetStateActio
 
     return (
         <div className={classes.form}>
-            <label htmlFor="titleInput">Title</label>
+            <label htmlFor={titleInputId}>Title</label>
             <input
-                id="titleInput"
+                id={titleInputId}
                 type="text"
                 name="title"
                 value={newTaskValues.title}
                 onChange={changeHandler}
             />
 
-            <label htmlFor="textarea">Text</label>
+            <label htmlFor={textareaId}>Text</label>
             <textarea
-                id="textarea"
+                id={textareaId}
                 name="text"
                 value={newTaskValues.text}
                 onChange={changeHandler}
             />
 
-            <label htmlFor="stageInput">Stage</label>
+            <label htmlFor={stageInputId}>Stage</label>
             <input
-                id="stageInput"
+                id={stageInputId}
                 type="text"
                 readOnly
                 value={newTaskValues.stage ? newTaskValues.stage.title : ""}

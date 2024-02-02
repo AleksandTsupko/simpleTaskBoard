@@ -31,3 +31,8 @@ export interface IChangeStageForTaskReq {
     taskId: number, 
     stageId: number
 }
+
+export interface INewStageValues {
+    title: string,
+    boardId: number
+}

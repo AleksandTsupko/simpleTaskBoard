@@ -7,13 +7,13 @@ const LS_BOARDS_KEY = "boards"
 interface BoardsState {
     selectedBoard: number | null,
     isShowModal: boolean,
-    draggedTaskId: number | null
+    draggedTaskId: number | null,
 }
 
 const initialState: BoardsState = {
     selectedBoard: Number(localStorage.getItem("selectedBoard") ?? null),
     isShowModal: false,
-    draggedTaskId: null
+    draggedTaskId: null,
 }
 
 export const supabaseSlice = createSlice({

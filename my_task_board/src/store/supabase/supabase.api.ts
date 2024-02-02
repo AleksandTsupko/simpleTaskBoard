@@ -1,5 +1,5 @@
 import { createApi, fakeBaseQuery, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { IBoard, IChangeStageForTaskReq, IStage, ISupabaseResponce, ITask } from "../../models/models"
+import { IBoard, IChangeStageForTaskReq, INewStageValues, IStage, ISupabaseResponce, ITask } from "../../models/models"
 import supabase from "./supabaseClient"
 import { log } from "console"
 import { INewTaskValues } from "../../components/Board/BoardButtons/NewTaskForm/NewTaskForm"
@@ -7,7 +7,7 @@ import { INewTaskValues } from "../../components/Board/BoardButtons/NewTaskForm/
 export const supabaseApi = createApi({
     reducerPath: "supabase/api",
     baseQuery: fakeBaseQuery(),
-    tagTypes: ["Boards","Tasks"],
+    tagTypes: ["Boards","Tasks", "Stages"],
     endpoints: (build) => ({
         getBoards: build.query<IBoard[], string>({
             queryFn: async () => {
@@ -40,7 +40,8 @@ export const supabaseApi = createApi({
                     .eq("boardId", boardId)
 
                 return { data }
-            }
+            },
+            providesTags: res => ["Stages"]
         }),
         createNewTask: build.mutation<ITask, INewTaskValues>({
             queryFn: async (newTaskValues: INewTaskValues) => {
@@ -79,6 +80,19 @@ export const supabaseApi = createApi({
             },
             invalidatesTags: ["Tasks"]
         }),
+        createNewStage: build.mutation<IStage, INewStageValues>({
+            queryFn: async (newStageValues: INewStageValues) => {
+                const { data, error }: any = await supabase
+                    .from("stages")
+                    .insert([{
+                        title: newStageValues.title,
+                        boardId: newStageValues.boardId,
+                    }])
+
+                return { data }
+            },
+            invalidatesTags: ["Stages"]
+        })
     })
 
 })
@@ -88,4 +102,5 @@ export const { useGetBoardsQuery,
     useCreateNewTaskMutation, 
     useLazyGetStagesQuery,
     useLazyGetTasksQuery,
-    useChangeStageForTaskMutation } = supabaseApi
+    useChangeStageForTaskMutation,
+    useCreateNewStageMutation } = supabaseApi
